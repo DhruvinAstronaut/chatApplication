@@ -24,18 +24,16 @@ function Chat({ socket, username, room }) {
   };
 
   useEffect(() => {
-    console.log("socketsocket______", socket)
     socket.on("receive_message", (data) => {
-        // console.log("socketsocket______", socket)
       setMessageList((list) => [...list, data]);
     });
 
-    // return (() => socket.emit("disconnect"))
+    // below code is executed when the component is unmounted or when the socket dependency changes. 
+    return () => socket.removeListener('receive_message')
   }, [socket]);
 
   return (
     <div className="chat-window">
-        {console.log("messageList____", messageList)}
       <div className="chat-header">
         <p>Live Chat</p>
       </div>
