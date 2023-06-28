@@ -30,7 +30,8 @@ function Chat({ socket, username, room }) {
       setMessageList((list) => [...list, data]);
     });
 
-    // return (() => socket.emit("disconnect"))
+    // below code is executed when the component is unmounted or when the socket dependency changes. 
+    return () => socket.removeListener('receive_message')
   }, [socket]);
 
   return (
